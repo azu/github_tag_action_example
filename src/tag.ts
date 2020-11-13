@@ -14,6 +14,7 @@ export const tag = async (
         repo: string;
     }
 ) => {
+    core.debug("options:" + JSON.stringify(options, null, 4));
     // logic
     try {
         await octokit.git.getRef({
