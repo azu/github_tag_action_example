@@ -8,7 +8,9 @@ async function run(): Promise<void> {
             required: true
         });
         const octokit = github.getOctokit(token);
-        const version: string = core.getInput("version") ?? require("./package.json").version;
+        const version: string = core.getInput("version", {
+            required: true
+        });
         const prefix: string = core.getInput("git_tag_prefix") ?? "";
         const git_commit_sha: string = core.getInput("git_commit_sha", {
             required: true
