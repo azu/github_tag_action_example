@@ -1,5 +1,5 @@
 import * as core from "@actions/core";
-import github from "@actions/github";
+import * as github from "@actions/github";
 import { tag } from "./tag";
 
 async function run(): Promise<void> {
@@ -24,7 +24,7 @@ async function run(): Promise<void> {
             gitName: github.context.actor,
             gitEmail: `${github.context.actor}@users.noreply.github.com`,
             gitTagName,
-            gitCommitSha: git_commit_sha,
+            gitCommitSha: git_commit_sha || github.context.sha,
             gitCommitMessage: `chore(release): ${gitTagName}`,
             gitDate: new Date().toISOString()
         });
