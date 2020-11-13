@@ -1,5 +1,6 @@
 import * as core from "@actions/core";
 import github from "@actions/github";
+import { tag } from "./tag";
 
 async function run(): Promise<void> {
     try {
@@ -17,27 +18,15 @@ async function run(): Promise<void> {
         });
         const [owner, repo] = github_repo.split("/");
         const gitTagName = `${prefix}${version}`;
-        const git = {
-            name: github.context.actor,
-            email: `${github.context.actor}@users.noreply.github.com`,
-            date: new Date().toISOString()
-        };
-        // logic
-        // https://stackoverflow.com/questions/15672547/how-to-tag-a-commit-in-api-using-curl-command
-        const res = await octokit.git.createTag({
-            tag: gitTagName,
-            object: git_commit_sha,
-            message: gitTagName,
-            type: "commit",
-            tagger: git,
-            owner,
-            repo
-        });
-        await octokit.git.createRef({
+        await tag(octokit, {
             owner,
             repo,
-            sha: res.data.sha,
-            ref: `refs/tags/${gitTagName}`
+            gitName: github.context.actor,
+            gitEmail: `${github.context.actor}@users.noreply.github.com`,
+            gitTagName,
+            gitCommitSha: git_commit_sha,
+            gitCommitMessage: `chore(release): ${gitTagName}`,
+            gitDate: new Date().toISOString()
         });
     } catch (error) {
         core.setFailed(error.message);
