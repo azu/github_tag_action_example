@@ -1,6 +1,6 @@
 {
   "name": "github_tag_action_example",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "description": "TypeScript template action",
   "main": "lib/main.js",
