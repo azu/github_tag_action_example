@@ -6,10 +6,7 @@
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
-    "format": "prettier --write **/*.ts",
-    "format-check": "prettier --check **/*.ts",
-    "lint": "eslint src/**/*.ts",
-    "test": "jest",
+    "test": "#",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\""
   },
   "repository": {
